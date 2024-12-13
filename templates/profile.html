@@ -1,0 +1,69 @@
+{% extends 'layout.html' %} 
+{% block title %} Profile {% endblock %} 
+{% block content %}
+
+    <body>
+        <h2>User Profile</h2>
+
+        
+            
+        <table>
+             <tr>
+                <td>Name:</td>
+                <td>{{ account['fullname'] }}</td>
+            </tr>
+            <tr>
+                <td>Username:</td>
+                <td>{{ account['username'] }}</td>
+            </tr>
+            <tr>
+                <td>Password:</td>
+                <td>********</td>
+                
+            </tr>
+            <tr>
+                <td>Email:</td>
+                <td>{{ account['email'] }}</td>
+            </tr>
+        </table>
+            
+        <a href="{{ url_for('logout') }}"><button type="submit" value="logout">Logout</button></a>
+        
+    </body>
+
+<style>
+    h2 {
+        font-size: 24px;
+        margin-bottom: 20px;
+    }
+
+    table {
+        margin: 5px auto;
+        width: 100%;
+    }
+
+    td:first-child {
+        text-align: left;
+        padding: 10px 0;
+    }
+
+    td:nth-child(2) {
+        text-align: right;
+        padding: 10px 0;
+    }
+
+    button {
+        width: 60px;
+        margin-top: 25px;
+        padding: 10px;
+        background-color: red;
+        color: white;
+        border: none;
+        cursor: pointer;
+        border-radius: 8px;
+        font-size: 12px;
+    }
+
+</style>
+
+{% endblock %}

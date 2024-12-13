@@ -1,0 +1,49 @@
+<html>
+    <head><title>{% block title %}{% endblock %}</title></head>
+    
+    <body>
+        <ul>
+            <a href="{{ url_for('home') }}">Home</a>
+            <a href="{{ url_for('profile') }}">Profile</a>
+            <a href="{{ url_for('setting')}}" >Setting</a>
+            <a href="{{ url_for('logout') }}">Logout</a>
+        </ul>
+
+        <main>
+            {% block content %}{% endblock %}
+        </main>
+
+    </body>
+</html>
+
+<style>
+    body {
+        font-family: Arial, Helvetica, sans-serif;
+        text-align: center;
+        background-color: whitesmoke;
+    }
+
+    ul {
+        padding: 25px 25px;
+        background-color: black;
+        text-align: center;
+    }
+
+    ul a {
+        text-decoration: none;
+        margin: 0px 15px;
+        font-size: 24px;
+        color: #ffffff;;
+    }
+
+
+    main {
+        max-width: 400px;
+        margin: 40px auto;
+        padding: 40px;
+        background-color: white;
+        border-radius: 8px;
+        box-shadow: 0.3em 0.3em 1em rgb(158, 157,157, 30%);
+    }
+
+</style>

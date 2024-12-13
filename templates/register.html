@@ -1,0 +1,120 @@
+<html>
+    <head>
+        <title>Register</title>
+    </head>
+
+    <body>
+        <main>
+            <h1>[Feitian College] Signup</h1>
+
+            <form id="SignupForm" action="{{ url_for('register') }}" method="post" autocomplete="off">
+           
+                <div>
+                    <input type="text" name="fullname" id="fullname" placeholder="Enter your Full Name" />
+                </div>
+
+                <div>
+                    <input type="text" name="username" id="username" placeholder="Enter your Username" required />
+                </div>
+
+                <div>
+                    <input type="text" name="email" id="email" placeholder="Enter your Email" />
+                </div>
+            
+                <div>
+                    <input type="password" name="password" id="password" placeholder="Enter your Password" />
+                </div>
+            
+            
+                <div id="msg">{{ msg }}</div>
+                <button type="submit" value="Register" name="">Sign up</button>
+        
+                <p style="text-align: center;">
+                    <a href="{{ url_for('login') }}">Already have an account? Login</a>
+                </p>
+
+            </form>
+        </main>
+
+    </body>
+</html>
+
+<script>
+    document.getElementById("SignupForm").addEventListener("submit", function(event) {
+        // prevent deafult submit process
+        event.preventDefault();
+        
+        // get value
+        const password = document.getElementById("password").value.trim();
+        
+        // password requirments
+        const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*(),.?":{}|<>]).{8,}$/;
+
+        // if password porvided, but not in the right form
+        if (password !== "" && !passwordRegex.test(password)) {
+            document.getElementById("msg").textContent = "Password must be at least 8 characters long, include 1 uppercase, 1 lowercase, 1 number, and 1 special character.";
+        } 
+        // if password not provided and it is in the right form
+        else if (password !== "" && passwordRegex.test(password)){
+            // Clear the error message if the password is valid
+            document.getElementById("msg").textContent = "";
+            // finish submit normally
+            document.getElementById("SignupForm").submit();
+        }
+        else {
+            // Clear the error message if the password is valid
+            document.getElementById("msg").textContent = "";
+            // finish submit notmally
+            document.getElementById("SignupForm").submit();
+        }
+    });
+</script>
+
+<style>
+
+    body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+        background-color: whitesmoke;
+    }
+
+    main {
+        max-width: 400px;
+        margin: 40px auto;
+        padding: 40px;
+        background-color: white;
+        border-radius: 8px;
+        box-shadow: 0.3em 0.3em 1em rgb(158, 157,157, 30%);
+    }
+
+    div {
+        padding: 8px 0;
+    }
+
+    main h1 {
+        text-align: center;
+    }
+
+    input[type="text"],
+    input[type="password"],
+    select,
+    textarea {
+        width: calc(100% - 20px);
+        padding: 10px;
+        margin-top: 10px;
+        border-radius: 4px;
+        border: 1px solid #ddd;
+    }
+
+    button {
+        width: 400px;
+        margin-top: 20px;
+        padding: 10px;
+        background-color: #4caf50;
+        color: white;
+        border: none;
+        cursor: pointer;
+    }
+
+</style>

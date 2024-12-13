@@ -1,0 +1,126 @@
+{% extends 'layout.html' %} 
+{% block title %} Setting {% endblock %} 
+{% block content %}
+
+<h1>Account Settings</h1>
+
+<body>
+    <form id = "settingForm" action="{{ url_for('setting')}}" method="post" autocapitalize="off">
+        <div><strong>Change Password</strong></div>
+        <div>
+            <input type="text" name="password" id="password" placeholder="Enter new password" > 
+        </div>
+
+        <div><strong>Update Email</strong></div>
+        <div>
+            <input type="text" name="email" id="email" placeholder="Enter your email" > 
+        </div>
+        
+        <div id="msg">{{msg}}</div>
+
+        <div>
+            <button type="submit" value="update">Save Changes</button>
+        </div>
+    </form>
+</body>
+
+<script>
+    document.getElementById("settingForm").addEventListener("submit", function(event) {
+        // prevent deafult submit process
+        event.preventDefault();
+        
+        // get value
+        const password = document.getElementById("password").value.trim();
+        const email = document.getElementById("email").value.trim();
+        
+        // requirments for password and email
+        const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*(),.?":{}|<>]).{8,}$/;
+        const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+
+
+        // if password porvided, but not in the right form
+        if (password !== "" && !passwordRegex.test(password)) {
+            document.getElementById("msg").textContent = "Password must be at least 8 characters long, include 1 uppercase, 1 lowercase, 1 number, and 1 special character.";
+        } 
+        // if password provided and it is in the right form
+        else if (password !== "" && passwordRegex.test(password)){
+            // if email not provided
+            if (email === "") {
+                // Clear the error message if the password is valid
+                document.getElementById("msg").textContent = "";
+                // finish submit normally
+                document.getElementById("settingForm").submit();
+                // redirection after submit
+                window.location.href="{{ url_for('profile') }}"
+            }
+            // if email provided and it is in the right form
+            else if (email !=="" && emailRegex.test(email)) {
+                // Clear the error message if the password is valid
+                document.getElementById("msg").textContent = "";
+                // finish submit normally
+                document.getElementById("settingForm").submit();
+            }
+            // if email is provided but it is not in the right form
+            else {
+                // error message
+                document.getElementById("msg").textContent = "Invalid email address";
+            }
+        }
+        // if password not provided but email provided
+        else if (password === "" && email !== ""){
+            // if email provided and it is in the right form
+            if (emailRegex.test(email)) {
+                // Clear the error message if the password is valid
+                document.getElementById("msg").textContent = "";
+                // finish submit normally
+                document.getElementById("settingForm").submit();
+                
+            }
+            // if email is provided but it is not in the right form
+            else if (!emailRegex.test(email)){
+                // error message
+                document.getElementById("msg").textContent = "Invalid email address";
+            }
+        }
+        // if both not
+        else if(password === "" && email === ""){
+            // do nothing here but sumbmit normally
+            document.getElementById("settingForm").submit();
+        }
+    });
+ 
+
+</script>
+
+
+<style>
+    div {
+        text-align: left;
+        padding: 5px 0;
+        font-size: 20px;
+    }
+
+    button {
+        width: 120px;
+        margin: 20 0 0 0;
+        padding: 10px;
+        background-color: blue;
+        color: white;
+        border: none;
+        cursor: pointer;
+        border-radius: 8px;
+        font-size: 12px;
+    }
+
+    input {
+        font-size: 18px;
+        width: 100%;
+        max-width: 400px;
+        height: 35px;
+        border: 1px solid gray;
+        border-radius: 2px;
+    }
+
+</style>
+
+{% endblock %}
